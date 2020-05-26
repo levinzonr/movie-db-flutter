@@ -18,7 +18,7 @@ class MockMovieRepository extends MovieRepository {
             (index) => Movie(
                 id: "p$page\$i$index",
                 displayName: "Movie $index name, page $page",
-                imageUrl: null)),
+                imageUrl: "assets/poster.jpg")),
         nextPage: ++page,
         hasMore: true
     );

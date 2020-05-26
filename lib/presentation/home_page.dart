@@ -52,6 +52,11 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildMovieItem(Movie movie) {
-    return Text(movie.displayName);
+    return Column(
+      children: <Widget>[
+        Image.asset(movie.imageUrl),
+        Text(movie.displayName)
+      ],
+    );
   }
 }
