@@ -57,13 +57,14 @@ class TopRatedMovieWidget extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 "${movie.displayName} (${movie.year})",
-                style: TextStyles.header2,
+                style: TextStyles.header1,
               )),
           Padding(padding: EdgeInsets.only(top: 8)),
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
               movie.genres.join(","),
+              style: TextStyles.body1,
             ),
           ),
         ],

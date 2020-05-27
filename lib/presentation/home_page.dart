@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/injection/injector.dart';
+import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
 import 'package:what_and_where/presentation/home_event.dart';
 import 'package:what_and_where/presentation/home_state.dart';
 import 'package:what_and_where/presentation/home_bloc.dart';
@@ -56,7 +57,7 @@ class HomePageState extends State<HomePage> {
       return ListView.separated(
         itemBuilder: (context, index) {
           return index >= state.movies.length ?
-          Container(padding: EdgeInsets.all(32), alignment: Alignment.center, child: CircularProgressIndicator(),) :
+          BottomLoadingIndicator() :
           TopRatedMovieWidget(movie: state.movies[index]);
         },
         separatorBuilder: (context, index) =>
