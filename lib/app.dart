@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:what_and_where/presentation/movies/movies_list_page.dart';
+import 'package:what_and_where/presentation/screens/home/home_page.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomePage.init(context)
+        home: HomePage()
     );
   }
 }

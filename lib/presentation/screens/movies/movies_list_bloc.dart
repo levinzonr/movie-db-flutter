@@ -2,8 +2,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:what_and_where/domain/interactor/get_top_rated_movies_interactor.dart';
-import 'package:what_and_where/presentation/movies/movies_list_event.dart';
-import 'package:what_and_where/presentation/movies/movies_list_state.dart';
+import 'package:what_and_where/presentation/screens/movies/movies_list_event.dart';
+import 'package:what_and_where/presentation/screens/movies/movies_list_state.dart';
 
 class MoviesListBloc extends Bloc<MoviesListEvent, MoviesListState> {
 

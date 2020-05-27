@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:what_and_where/injection/injector.dart';
 import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
-import 'package:what_and_where/presentation/movies/movies_list_event.dart';
-import 'package:what_and_where/presentation/movies/movies_list_state.dart';
-import 'package:what_and_where/presentation/movies/movies_list_bloc.dart';
-import 'package:what_and_where/presentation/top_rated_movie_widget.dart';
+import 'package:what_and_where/presentation/screens/movies/movies_list_bloc.dart';
+import 'package:what_and_where/presentation/screens/movies/movies_list_event.dart';
+import 'package:what_and_where/presentation/screens/movies/movies_list_state.dart';
+import 'package:what_and_where/presentation/screens/movies/widgets/top_rated_movie_widget.dart';
 import 'package:what_and_where/utils/logger.dart';
 
-class HomePage extends StatefulWidget {
+class MoviesListPage extends StatefulWidget {
 
   static Widget init(BuildContext context) =>
       BlocProvider<MoviesListBloc>(
         create: (_) => injector(),
-        child: HomePage(),
+        child: MoviesListPage(),
       );
 
   @override
-  State createState() => HomePageState();
+  State createState() => MoviesListPageState();
 
 }
 
-class HomePageState extends State<HomePage> {
+class MoviesListPageState extends State<MoviesListPage> {
 
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
@@ -43,9 +43,7 @@ class HomePageState extends State<HomePage> {
     bloc.add(LoadInitial());
     return BlocBuilder<MoviesListBloc, MoviesListState>(
         builder: (context, state) {
-          return Scaffold(
-              appBar: AppBar(title: Text("Home")),
-              body: _buildContent(context, state));
+          return _buildContent(context, state);
         }
     );
   }
