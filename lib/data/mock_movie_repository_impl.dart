@@ -14,7 +14,7 @@ class MockMovieRepository extends MovieRepository {
   Page<Movie> _buildMoviesPage(int page) {
     return Page(
         data: List.generate(
-            30,
+            10,
             (index) => Movie(
                 id: "p$page\$i$index",
                 displayName: "Movie $index name, page $page",

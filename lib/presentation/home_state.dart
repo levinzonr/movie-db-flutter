@@ -13,10 +13,11 @@ class Default extends HomeState {}
 
 class MoviePageLoaded extends HomeState {
   final List<Movie> movies;
+  final bool hasMore;
 
-  MoviePageLoaded(this.movies);
+  MoviePageLoaded(this.movies, this.hasMore);
 
   @override
-  List<Object> get props => [movies];
+  List<Object> get props => super.props + [movies];
 
 }

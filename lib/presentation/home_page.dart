@@ -5,10 +5,9 @@ import 'package:what_and_where/injection/injector.dart';
 import 'package:what_and_where/presentation/home_event.dart';
 import 'package:what_and_where/presentation/home_state.dart';
 import 'package:what_and_where/presentation/home_bloc.dart';
+import 'package:what_and_where/utils/logger.dart';
 
-class HomePage extends StatelessWidget {
-
-  ScrollController _scrollController = ScrollController();
+class HomePage extends StatefulWidget {
 
   static Widget init(BuildContext context) =>
       BlocProvider<HomeBloc>(
@@ -17,8 +16,29 @@ class HomePage extends StatelessWidget {
       );
 
   @override
+  State createState() => HomePageState();
+
+}
+
+class HomePageState extends State<HomePage> {
+
+  final _scrollController = ScrollController();
+  final _scrollThreshold = 200.0;
+  bool isLoading = false;
+  HomeBloc bloc;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() { _onScroll(); });
+    bloc = context.bloc();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    HomeBloc bloc = context.bloc();
+    bloc = context.bloc();
     bloc.add(LoadInitial());
     return BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
@@ -30,24 +50,31 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, HomeState state) {
-
-    _scrollController.addListener(() {
-      if (_scrollController.offset == _scrollController.position.maxScrollExtent) {
-        HomeBloc bloc = context.bloc();
-        bloc.add(LoadNext());
-      }
-    });
-
     if (state is MoviePageLoaded) {
+      isLoading = false;
       return ListView.separated(
-        itemBuilder: (context, index) => _buildMovieItem(state.movies[index]),
+        itemBuilder: (context, index) {
+          return index >= state.movies.length ? Text("Loading") : _buildMovieItem(state.movies[index]);
+        },
         separatorBuilder: (context, index) =>
             Padding(padding: EdgeInsets.symmetric(vertical: 16)),
-        itemCount: state.movies.length,
+        itemCount: state.hasMore ? state.movies.length + 1 : state.movies.length,
         controller: _scrollController,
       );
     } else {
       return Text("Error");
+    }
+  }
+
+  void _onScroll() {
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    if (maxScroll - currentScroll <= _scrollThreshold) {
+      logger.d("Max: $maxScroll, current: $currentScroll");
+      if (!isLoading)  {
+        isLoading = true;
+        bloc.add(LoadNext());
+      }
     }
   }
 
