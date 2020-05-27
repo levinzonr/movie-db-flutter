@@ -5,6 +5,7 @@ import 'package:what_and_where/injection/injector.dart';
 import 'package:what_and_where/presentation/home_event.dart';
 import 'package:what_and_where/presentation/home_state.dart';
 import 'package:what_and_where/presentation/home_bloc.dart';
+import 'package:what_and_where/presentation/top_rated_movie_widget.dart';
 import 'package:what_and_where/utils/logger.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,7 +55,9 @@ class HomePageState extends State<HomePage> {
       isLoading = false;
       return ListView.separated(
         itemBuilder: (context, index) {
-          return index >= state.movies.length ? Text("Loading") : _buildMovieItem(state.movies[index]);
+          return index >= state.movies.length ?
+          Container(padding: EdgeInsets.all(32), alignment: Alignment.center, child: CircularProgressIndicator(),) :
+          TopRatedMovieWidget(movie: state.movies[index]);
         },
         separatorBuilder: (context, index) =>
             Padding(padding: EdgeInsets.symmetric(vertical: 16)),
@@ -76,14 +79,5 @@ class HomePageState extends State<HomePage> {
         bloc.add(LoadNext());
       }
     }
-  }
-
-  Widget _buildMovieItem(Movie movie) {
-    return Column(
-      children: <Widget>[
-        Image.asset(movie.imageUrl),
-        Text(movie.displayName)
-      ],
-    );
   }
 }
