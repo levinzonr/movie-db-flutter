@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/injection/injector.dart';
 import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
-import 'package:what_and_where/presentation/home_event.dart';
-import 'package:what_and_where/presentation/home_state.dart';
-import 'package:what_and_where/presentation/home_bloc.dart';
+import 'package:what_and_where/presentation/movies/movies_list_event.dart';
+import 'package:what_and_where/presentation/movies/movies_list_state.dart';
+import 'package:what_and_where/presentation/movies/movies_list_bloc.dart';
 import 'package:what_and_where/presentation/top_rated_movie_widget.dart';
 import 'package:what_and_where/utils/logger.dart';
 
 class HomePage extends StatefulWidget {
 
   static Widget init(BuildContext context) =>
-      BlocProvider<HomeBloc>(
+      BlocProvider<MoviesListBloc>(
         create: (_) => injector(),
         child: HomePage(),
       );
@@ -27,7 +26,7 @@ class HomePageState extends State<HomePage> {
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
   bool isLoading = false;
-  HomeBloc bloc;
+  MoviesListBloc bloc;
 
 
   @override
@@ -42,7 +41,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     bloc = context.bloc();
     bloc.add(LoadInitial());
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocBuilder<MoviesListBloc, MoviesListState>(
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(title: Text("Home")),
@@ -51,7 +50,7 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildContent(BuildContext context, HomeState state) {
+  Widget _buildContent(BuildContext context, MoviesListState state) {
     if (state is MoviePageLoaded) {
       isLoading = false;
       return ListView.separated(

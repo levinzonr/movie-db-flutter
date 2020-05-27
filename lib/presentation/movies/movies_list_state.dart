@@ -2,16 +2,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:what_and_where/domain/models/movie.dart';
 
-abstract class HomeState extends Equatable {
+abstract class MoviesListState extends Equatable {
 
   @override
   List<Object> get props => [];
 }
 
 
-class Default extends HomeState {}
+class Default extends MoviesListState {}
 
-class MoviePageLoaded extends HomeState {
+class MoviePageLoaded extends MoviesListState {
   final List<Movie> movies;
   final bool hasMore;
 
