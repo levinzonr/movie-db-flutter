@@ -1,8 +1,8 @@
 import 'dart:math';
-
 import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/domain/models/page.dart';
 import 'package:what_and_where/domain/repository/movie_repository.dart';
+import 'package:what_and_where/extensions/extensions.dart';
 import 'package:what_and_where/utils/logger.dart';
 
 class MockMovieRepository extends MovieRepository {
@@ -22,12 +22,13 @@ class MockMovieRepository extends MovieRepository {
   }
 
   Movie mockMovie(int index) {
+    final random = Random();
     return Movie(
       id: index.toString(),
       displayName: _mockName(index),
       imageUrl: _mockImage(index),
-      metascore: Random().nextInt(100),
-      year: 2020,
+      metascore: random.next(10, 100),
+      year: random.next(1999, 2020),
       rating: 9.5,
       description: "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
       genres: ["Crime, Drama, Action"]

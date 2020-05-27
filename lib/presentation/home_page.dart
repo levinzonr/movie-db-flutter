@@ -60,7 +60,7 @@ class HomePageState extends State<HomePage> {
           TopRatedMovieWidget(movie: state.movies[index]);
         },
         separatorBuilder: (context, index) =>
-            Padding(padding: EdgeInsets.symmetric(vertical: 16)),
+            Padding(padding: EdgeInsets.symmetric(vertical: 8)),
         itemCount: state.hasMore ? state.movies.length + 1 : state.movies.length,
         controller: _scrollController,
       );
