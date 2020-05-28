@@ -21,13 +21,15 @@ class MoviesListPage extends StatefulWidget {
 
 }
 
-class MoviesListPageState extends State<MoviesListPage> {
+class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveClientMixin<MoviesListPage> {
 
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
   bool isLoading = false;
   MoviesListBloc bloc;
 
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -63,7 +65,7 @@ class MoviesListPageState extends State<MoviesListPage> {
         controller: _scrollController,
       );
     } else {
-      return Text("Error");
+      return BottomLoadingIndicator();
     }
   }
 
