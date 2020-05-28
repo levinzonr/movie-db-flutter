@@ -8,6 +8,7 @@ import 'package:what_and_where/presentation/screens/movie_details/movie_details_
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_event.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_state.dart';
 import 'package:what_and_where/presentation/screens/movie_details/widgets/movie_toolbar_content.dart';
+import 'package:what_and_where/utils/logger.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
@@ -42,7 +43,7 @@ class MovieDetailsPage extends StatelessWidget {
                 ),
               ),
               SliverFillRemaining(
-                child: _buildDetailsPage(context, state),
+                child: _buildProvidersPage(context, state),
               )
             ],
           ),
@@ -52,7 +53,7 @@ class MovieDetailsPage extends StatelessWidget {
   }
 
   Widget _collpasingToolbarContent(MovieDetailsState state) {
-    final backroundUrl = state is MovieDetailsLoaded ? state.movie.details?.landingImageUrl : null;
+    final backroundUrl = state.movie?.details?.landingImageUrl;
       return MovieToolbarContent(
         backgroundImageUrl: backroundUrl,
         posterImageUrl: movie.imageUrl,
@@ -62,10 +63,18 @@ class MovieDetailsPage extends StatelessWidget {
   }
 
 
-
   Widget _buildDetailsPage(BuildContext context, MovieDetailsState state) {
-    if (state is MovieDetailsLoaded) {
+    if (!state.isLoading) {
       return Text(state.movie.details.toString());
+    } else {
+      return CenteredLoadingIndicator();
+    }
+  }
+
+  Widget _buildProvidersPage(BuildContext context, MovieDetailsState state) {
+    logger.d("State: ${state.providersLoading}, ${state.providers}");
+    if (!state.providersLoading) {
+      return Text(state.providers.join("\n"));
     } else {
       return CenteredLoadingIndicator();
     }
