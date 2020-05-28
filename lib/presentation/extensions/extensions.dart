@@ -14,3 +14,12 @@ extension MovieExtension on Movie {
     }
   }
 }
+
+
+extension Routes on BuildContext {
+  pushTo(widget) {
+    Navigator.push(this, MaterialPageRoute(
+      builder: (context) => widget,
+    ));
+  }
+}

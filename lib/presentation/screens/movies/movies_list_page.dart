@@ -8,6 +8,7 @@ import 'package:what_and_where/presentation/screens/movies/movies_list_event.dar
 import 'package:what_and_where/presentation/screens/movies/movies_list_state.dart';
 import 'package:what_and_where/presentation/screens/movies/widgets/top_rated_movie_widget.dart';
 import 'package:what_and_where/utils/logger.dart';
+import 'package:what_and_where/presentation/extensions/extensions.dart';
 
 class MoviesListPage extends StatefulWidget {
 
@@ -60,7 +61,9 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
           CenteredLoadingIndicator() :
           TopRatedMovieWidget(
               movie: state.movies[index],
-              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage.init(context, state.movies[index]))); } ,
+              onTap: () {
+                context.pushTo(MovieDetailsPage.init(context, state.movies[index]));
+              }
           );
         },
         separatorBuilder: (context, index) =>

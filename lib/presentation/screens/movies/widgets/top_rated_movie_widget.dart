@@ -35,7 +35,7 @@ class TopRatedMovieWidget extends StatelessWidget {
       child: Container(
         height: double.infinity,
         width: double.infinity,
-        child: Image.asset(movie.imageUrl, fit: BoxFit.fill),
+        child: Hero(tag: "poster${movie.id}", child: Image.asset(movie.imageUrl, fit: BoxFit.fill)),
       ));
 
   Widget get detailsRow => Flexible(

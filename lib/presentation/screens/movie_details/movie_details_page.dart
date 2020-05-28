@@ -10,15 +10,15 @@ import 'package:what_and_where/presentation/screens/movie_details/movie_details_
 import 'package:what_and_where/presentation/screens/movie_details/widgets/movie_toolbar_content.dart';
 
 class MovieDetailsPage extends StatelessWidget {
-  final String movieId;
+  final Movie movie;
 
-  MovieDetailsPage({this.movieId});
+  MovieDetailsPage({this.movie});
 
   static Widget init(BuildContext context, Movie movie) {
     return BlocProvider<MovieDetailsBloc>(
       create: (_) => injector<MovieDetailsBloc>(),
       child: MovieDetailsPage(
-        movieId: movie.id,
+        movie: movie,
       ),
     );
   }
@@ -26,7 +26,7 @@ class MovieDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MovieDetailsBloc bloc = context.bloc();
-    bloc.add(Init(movieId));
+    bloc.add(Init(movie.id));
 
     return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
       builder: (context, state) {
@@ -52,16 +52,13 @@ class MovieDetailsPage extends StatelessWidget {
   }
 
   Widget _collpasingToolbarContent(MovieDetailsState state) {
-    if (state is MovieDetailsLoaded) {
+    final backroundUrl = state is MovieDetailsLoaded ? state.movie.details?.landingImageUrl : null;
       return MovieToolbarContent(
-        backgroundImageUrl: state.movie.details.landingImageUrl,
-        posterImageUrl: state.movie.imageUrl,
-        title: state.movie.displayName,
-        subtitle: "${state.movie.year} * ${state.movie.details.runtime}",
+        backgroundImageUrl: backroundUrl,
+        posterImageUrl: movie.imageUrl,
+        title: movie.displayName,
+        subtitle: "${movie.year} }",
       );
-    } else {
-      return CenteredLoadingIndicator();
-    }
   }
 
 

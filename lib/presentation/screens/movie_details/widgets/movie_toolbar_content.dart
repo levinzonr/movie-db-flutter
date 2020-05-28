@@ -8,15 +8,16 @@ class MovieToolbarContent extends StatelessWidget {
   final String backgroundImageUrl;
   final String title;
   final String subtitle;
+  final String id;
 
   MovieToolbarContent(
-      {this.posterImageUrl, this.backgroundImageUrl, this.title, this.subtitle});
+      {this.id, this.posterImageUrl, this.backgroundImageUrl, this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Image.asset(backgroundImageUrl, fit: BoxFit.fill,),
+        backgroundImageUrl != null ? Image.asset(backgroundImageUrl) : Container(),
         _toolbarGradient,
         _movieDetailsContent,
       ],
@@ -51,10 +52,12 @@ class MovieToolbarContent extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(posterImageUrl, fit: BoxFit.fitHeight,),
-            ),
+            Hero(
+                tag: "poster$id",
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(posterImageUrl, fit: BoxFit.fitHeight,),
+            )),
             Padding(padding: EdgeInsets.only(left: 16, bottom: 16)),
             Expanded(child: _movieNameTitle)
           ]
