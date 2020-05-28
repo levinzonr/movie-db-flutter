@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:what_and_where/injection/injector.dart';
 import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
+import 'package:what_and_where/presentation/screens/movie_details/movie_details_page.dart';
 import 'package:what_and_where/presentation/screens/movies/movies_list_bloc.dart';
 import 'package:what_and_where/presentation/screens/movies/movies_list_event.dart';
 import 'package:what_and_where/presentation/screens/movies/movies_list_state.dart';
@@ -57,7 +58,10 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
         itemBuilder: (context, index) {
           return index >= state.movies.length ?
           BottomLoadingIndicator() :
-          TopRatedMovieWidget(movie: state.movies[index]);
+          TopRatedMovieWidget(
+              movie: state.movies[index],
+              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage())); } ,
+          );
         },
         separatorBuilder: (context, index) =>
             Padding(padding: EdgeInsets.symmetric(vertical: 8)),

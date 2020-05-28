@@ -12,7 +12,7 @@ import 'package:what_and_where/presentation/translations/translations.dart';
 class HomePage extends StatefulWidget {
 
 
-  static Widget init(BuildContext) => BlocProvider<HomeBloc>(
+  static Widget init(BuildContext context) => BlocProvider<HomeBloc>(
     create: (_) => injector<HomeBloc>(),
     child: HomePage(),
   );
@@ -83,6 +83,9 @@ class HomePageState extends State<HomePage> {
       }
       case HomeTab.settings: {
         return Placeholder(color: Colors.blue,);
+      }
+      default : {
+        return Placeholder(color: Colors.red,);
       }
     }
   }

@@ -5,25 +5,29 @@ import 'package:what_and_where/presentation/extensions/extensions.dart';
 
 class TopRatedMovieWidget extends StatelessWidget {
   final Movie movie;
+  final VoidCallback onTap;
 
-  TopRatedMovieWidget({this.movie});
+  TopRatedMovieWidget({this.movie, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 200,
-        child: Card(
-          elevation: 16,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          clipBehavior: Clip.hardEdge,
-          child: Row(
-            children: <Widget>[
-              imageRow,
-              detailsRow,
-            ],
-          ),
-        ));
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+          height: 200,
+          child: Card(
+            elevation: 16,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            clipBehavior: Clip.hardEdge,
+            child: Row(
+              children: <Widget>[
+                imageRow,
+                detailsRow,
+              ],
+            ),
+          )),
+    );
   }
 
   Widget get imageRow => Flexible(
@@ -41,12 +45,16 @@ class TopRatedMovieWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 16, top: 16),
+              padding: EdgeInsets.only(left: 16, top: 16),
               child: _descriptionColumn),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[_metascoreColumn, Padding(padding: EdgeInsets.only(left: 8)), ratingRow],
+            children: <Widget>[
+              _metascoreColumn,
+              Padding(padding: EdgeInsets.only(left: 8)),
+              ratingRow
+            ],
           ),
         ],
       ));
@@ -88,19 +96,22 @@ class TopRatedMovieWidget extends StatelessWidget {
       );
 
   Widget get _metascoreColumn => Container(
-    width: 44,
-    height: 44,
-    padding: EdgeInsets.only(right: 8, bottom: 8),
-    alignment: Alignment.center,
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: 44,
+        height: 44,
+        padding: EdgeInsets.only(right: 8, bottom: 8),
         alignment: Alignment.center,
-        color: movie.metascoreColor,
-        child: Text(movie.metascore.toString(), style: TextStyles.button,),
-      ),
-    ),
-  );
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.center,
+            color: movie.metascoreColor,
+            child: Text(
+              movie.metascore.toString(),
+              style: TextStyles.button,
+            ),
+          ),
+        ),
+      );
 }
