@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-class BottomLoadingIndicator extends StatelessWidget {
+class CenteredLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

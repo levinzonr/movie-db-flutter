@@ -13,6 +13,13 @@ class MockMovieRepository extends MovieRepository {
         .then((value) => _buildMoviesPage(page));
   }
 
+
+  @override
+  Future<Movie> getMovieWithDetails(String id) {
+    return Future.delayed(Duration(seconds: 2))
+        .then((value) => mockMovie(1, details: mockDetails()));
+  }
+
   Page<Movie> _buildMoviesPage(int page) {
      return Page(
        data: List.generate(10, (index) => mockMovie(index)),
@@ -21,7 +28,17 @@ class MockMovieRepository extends MovieRepository {
      );
   }
 
-  Movie mockMovie(int index) {
+  MovieDetails mockDetails() {
+    return MovieDetails(
+      runtime: Random().next(100, 320),
+      tagline: "I want to beleive",
+      landingImageUrl: "assets/preview.jpg",
+      synopsis: "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+      releaseDate: DateTime.now()
+    );
+  }
+
+  Movie mockMovie(int index, {MovieDetails details}) {
     final random = Random();
     return Movie(
       id: index.toString(),
@@ -30,8 +47,9 @@ class MockMovieRepository extends MovieRepository {
       metascore: random.next(10, 100),
       year: random.next(1999, 2020),
       rating: 9.5,
-      description: "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
-      genres: ["Crime, Drama, Action"]
+      description: "",
+      genres: ["Crime, Drama, Action"],
+      details: details
     );
   }
 

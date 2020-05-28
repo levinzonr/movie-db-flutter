@@ -57,10 +57,10 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
       return ListView.separated(
         itemBuilder: (context, index) {
           return index >= state.movies.length ?
-          BottomLoadingIndicator() :
+          CenteredLoadingIndicator() :
           TopRatedMovieWidget(
               movie: state.movies[index],
-              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage())); } ,
+              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage.init(context, state.movies[index]))); } ,
           );
         },
         separatorBuilder: (context, index) =>
@@ -69,7 +69,7 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
         controller: _scrollController,
       );
     } else {
-      return BottomLoadingIndicator();
+      return CenteredLoadingIndicator();
     }
   }
 
