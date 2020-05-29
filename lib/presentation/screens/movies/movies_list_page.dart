@@ -60,7 +60,7 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
           return index >= state.movies.length ?
           CenteredLoadingIndicator() :
           TopRatedMovieWidget(
-              movie: state.movies[index],
+              content: state.movies[index],
               onTap: () {
                 context.pushTo(MovieDetailsPage.init(context, state.movies[index]));
               }
@@ -81,7 +81,7 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
       logger.d("Max: $maxScroll, current: $currentScroll");
-      if (!isLoading)  {
+      if (!isLoading && bloc.hasMore)  {
         isLoading = true;
         bloc.add(LoadNext());
       }

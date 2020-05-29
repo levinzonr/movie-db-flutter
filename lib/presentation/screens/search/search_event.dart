@@ -1,5 +1,6 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:what_and_where/domain/models/page.dart';
 import 'package:what_and_where/domain/models/video_content.dart';
 
 abstract class SearchEvent extends Equatable {
@@ -20,6 +21,6 @@ class LoadNext extends SearchEvent {
 }
 
 class ContentLoaded extends SearchEvent {
-  final List<VideoContent> content;
+  final Page<VideoContent> content;
   ContentLoaded(this.content);
 }

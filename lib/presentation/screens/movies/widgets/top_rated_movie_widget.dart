@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:what_and_where/domain/models/movie.dart';
+import 'package:what_and_where/domain/models/video_content.dart';
 import 'package:what_and_where/presentation/common/text_styles.dart';
 import 'package:what_and_where/presentation/extensions/extensions.dart';
 
 class TopRatedMovieWidget extends StatelessWidget {
-  final Movie movie;
+  final VideoContent content;
   final VoidCallback onTap;
 
-  TopRatedMovieWidget({this.movie, this.onTap});
+  TopRatedMovieWidget({this.content, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class TopRatedMovieWidget extends StatelessWidget {
           child: Card(
             elevation: 16,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             clipBehavior: Clip.hardEdge,
             child: Row(
               children: <Widget>[
@@ -35,7 +36,7 @@ class TopRatedMovieWidget extends StatelessWidget {
       child: Container(
         height: double.infinity,
         width: double.infinity,
-        child: Hero(tag: "poster${movie.id}", child: Image.asset(movie.imageUrl, fit: BoxFit.fill)),
+        child:  Image.asset(content.posterImageUrl, fit: BoxFit.fill),
       ));
 
   Widget get _detailsRow => Flexible(
@@ -51,7 +52,6 @@ class TopRatedMovieWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _metascoreColumn,
               Padding(padding: EdgeInsets.only(left: 8)),
               _ratingRow
             ],
@@ -64,14 +64,14 @@ class TopRatedMovieWidget extends StatelessWidget {
           Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "${movie.displayName} (${movie.year})",
+                "${content.title} (${content.releaseDate})",
                 style: TextStyles.header1,
               )),
           Padding(padding: EdgeInsets.only(top: 8)),
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              movie.genres.join(","),
+              "Genres",
               style: TextStyles.body1,
             ),
           ),
@@ -88,30 +88,11 @@ class TopRatedMovieWidget extends StatelessWidget {
               color: Colors.yellow,
             ),
             Text(
-              movie.rating.toString(),
+              content.voteAverage.toString(),
               style: TextStyles.body1,
             )
           ],
         ),
       );
 
-  Widget get _metascoreColumn => Container(
-        width: 44,
-        height: 44,
-        padding: EdgeInsets.only(right: 8, bottom: 8),
-        alignment: Alignment.center,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            alignment: Alignment.center,
-            color: movie.metascoreColor,
-            child: Text(
-              movie.metascore.toString(),
-              style: TextStyles.button,
-            ),
-          ),
-        ),
-      );
 }

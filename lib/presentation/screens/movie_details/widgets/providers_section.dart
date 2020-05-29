@@ -23,7 +23,7 @@ class ProvidersSection extends StatelessWidget {
   }
 
   Container get providersContainer {
-    final widgets = providers.map((e) => ProviderView(provider: e,)).toList();
+    final widgets = providers?.map((e) => ProviderView(provider: e,))?.toList() ?? [];
     return Container (
         child: Wrap(
           spacing: 16,

@@ -3,14 +3,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/injection/injector.dart';
+import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
 import 'package:what_and_where/presentation/common/wigets/search_bar.dart';
+import 'package:what_and_where/presentation/screens/movie_details/movie_details_page.dart';
+import 'package:what_and_where/presentation/screens/movies/widgets/top_rated_movie_widget.dart';
 import 'package:what_and_where/presentation/screens/search/search_bloc.dart';
 import 'package:what_and_where/presentation/screens/search/search_event.dart';
 import 'package:what_and_where/presentation/screens/search/search_state.dart';
 import 'package:what_and_where/utils/logger.dart';
 
 class SearchPage extends StatefulWidget {
+
 
   static Widget init(BuildContext context) {
     return BlocProvider<SearchBloc>(
@@ -25,6 +30,15 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
 
+  final ScrollController controller = ScrollController();
+  SearchBloc bloc;
+
+  @override
+  void initState() {
+    controller.addListener(() { _onScroll(); });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
@@ -33,16 +47,60 @@ class SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildContent(BuildContext context, SearchState state) {
-    final SearchBloc bloc = context.bloc();
+    bloc = context.bloc();
     logger.d("State $state");
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: <Widget>[
-          SearchBar(
+          Container(
+            padding: EdgeInsets.only(top: 72, left: 12, right: 12),
+              child: _buildListView(context, state)),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+            child: SearchBar(
             onChanged: (query) => bloc.add(SearchQueryUpdated(query)),
-          )
+            ),
+          ),
         ],
       ),
     );
   }
+
+
+  Widget _buildListView(BuildContext context, SearchState state) {
+    if (state is ContentLoadedSuccess) {
+      logger.d("Leas ${state.content.length}");
+      return ListView.separated(
+        controller: controller,
+        itemBuilder: (context, index) {
+          return index >= state.content.length ?
+          CenteredLoadingIndicator() :
+          TopRatedMovieWidget(
+              content: state.content[index],
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage.init(context, state.content[index])));
+              }
+          );
+        },
+        separatorBuilder: (context, index) =>
+            Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+        itemCount: state.hasMore ? state.content.length + 1 : state.content.length,
+      );
+    } else {
+      return CenteredLoadingIndicator();
+    }
+  }
+
+
+  void _onScroll() {
+    final maxScroll = controller.position.maxScrollExtent;
+    final currentScroll = controller.position.pixels;
+
+    if (maxScroll - currentScroll <= 200.0) {
+      if (!bloc.isLoadingNextPage && bloc.hasMore)  {
+        bloc.add(LoadNext());
+      }
+    }
+  }
+
 }

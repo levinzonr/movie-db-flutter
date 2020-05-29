@@ -6,14 +6,20 @@ import 'package:what_and_where/domain/models/video_content.dart';
 import 'package:what_and_where/domain/repository/movie_repository.dart';
 import 'package:what_and_where/utils/logger.dart';
 
-class SearchContentInteractor extends Interactor<String, Page<VideoContent>> {
+class SearchContentInteractorInput {
+  final String query;
+  final int page;
+  SearchContentInteractorInput({this.query, this.page});
+}
+
+class SearchContentInteractor extends Interactor<SearchContentInteractorInput, Page<VideoContent>> {
 
   final MovieRepository _repository;
   SearchContentInteractor(this._repository);
 
   @override
-  Future<Page<VideoContent>> execute([String input]) async {
-    return await _repository.searchContent(input).then((value) {
+  Future<Page<VideoContent>> execute([SearchContentInteractorInput input]) async {
+    return await _repository.searchContent(input.query, input.page).then((value) {
       return value;
     }).catchError((error) {
       logger.d("Error: $error");

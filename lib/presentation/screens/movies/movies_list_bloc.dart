@@ -11,6 +11,7 @@ class MoviesListBloc extends Bloc<MoviesListEvent, MoviesListState> {
   MoviesListBloc(this.getTopRatedMoviesPageInteractor);
   
   int _nextPageToLoad = null;
+  bool hasMore = false;
   bool isLoadingNextPage = false;
   
   @override
@@ -26,6 +27,7 @@ class MoviesListBloc extends Bloc<MoviesListEvent, MoviesListState> {
         if (result != null) {
           isLoadingNextPage = false;
           _nextPageToLoad = result.nextPage;
+          hasMore = result.hasMore;
           yield MoviePageLoaded(result.data, result.hasMore);
         }
      }
@@ -35,6 +37,7 @@ class MoviesListBloc extends Bloc<MoviesListEvent, MoviesListState> {
        final result = await getTopRatedMoviesPageInteractor.execute(input);
        if (result != null) {
          isLoadingNextPage = false;
+         hasMore = result.hasMore;
          _nextPageToLoad = result.nextPage;
          yield MoviePageLoaded(currentState.movies + result.data, result.hasMore);
        }

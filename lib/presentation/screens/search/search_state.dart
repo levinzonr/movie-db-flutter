@@ -24,5 +24,10 @@ class ContentLoading extends SearchState {
 class ContentLoadedSuccess extends SearchState {
   final List<VideoContent> content;
   final String query;
-  ContentLoadedSuccess(this.content, this.query) : super(query);
+  final bool hasMore;
+  ContentLoadedSuccess(this.content, this.query, this.hasMore) : super(query);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => super.props + [content, query, hasMore];
 }

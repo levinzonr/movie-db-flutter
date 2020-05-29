@@ -11,7 +11,7 @@ class MockMovieRepository extends MovieRepository {
   Future<Page<Movie>> getTopRatedMoviesPage(int page) {
     logger.d("Loading movies page $page");
     return Future.delayed(Duration(seconds: 1))
-        .then((value) => _buildMoviesPage(page, false));
+        .then((value) => _buildMoviesPage(page, page != 3));
   }
 
 
@@ -31,9 +31,9 @@ class MockMovieRepository extends MovieRepository {
 
 
   @override
-  Future<Page<VideoContent>> searchContent(String query) {
+  Future<Page<VideoContent>> searchContent(String query, int page) {
     return Future.delayed(Duration(seconds: 1)).then((value) {
-      return _buildMoviesPage(1, false);
+      return _buildMoviesPage(1, page != 3);
     });
   }
 

@@ -63,7 +63,7 @@ class MovieToolbarContent extends StatelessWidget {
           children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Hero(tag: "poster$id", child: Image.asset(posterImageUrl, fit: BoxFit.fitHeight,)),
+                  child: Image.asset(posterImageUrl, fit: BoxFit.fitHeight,),
             ),
             Padding(padding: EdgeInsets.only(left: 16, bottom: 16)),
             Expanded(child: _movieNameTitle)

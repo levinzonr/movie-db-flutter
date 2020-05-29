@@ -10,9 +10,15 @@ import 'package:what_and_where/utils/logger.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   final SearchContentInteractor _searchContentInteractor;
+  int _nextPageToLoad;
+  bool hasMore;
+  bool isLoadingNextPage;
+
+
   SearchBloc(this._searchContentInteractor);
 
   CancelableOperation<Page<VideoContent>> searchOperation;
+
 
 
   @override
@@ -21,24 +27,46 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
     final currentState = state;
+    logger.d("Event: $event, state:$currentState");
     if (event is SearchQueryUpdated) {
-      logger.d("new query : ${event.newQuery}");
-      yield ContentLoading(state.query);
-      searchOperation?.cancel();
-      searchOperation = newSearchJob(event.newQuery);
-      searchOperation?.valueOrCancellation()?.then((value) {
-        if (value != null) {
-          add(ContentLoaded(value.data));
-        }
-      });
+      if (event.newQuery.isEmpty) {
+        searchOperation?.cancel();
+        isLoadingNextPage = false;
+        yield Default();
+      } else {
+        yield ContentLoading(state.query);
+        searchOperation?.cancel();
+        isLoadingNextPage = true;
+        searchOperation = newSearchJob(event.newQuery, 0);
+        searchOperation?.valueOrCancellation()?.then((value) {
+          if (value != null) {
+            _nextPageToLoad = value.nextPage;
+            add(ContentLoaded(value));
+          }
+        });
+      }
     } else if (event is ContentLoaded) {
-        yield ContentLoadedSuccess(event.content, currentState.query);
+        isLoadingNextPage = false;
+        hasMore = event.content.hasMore;
+        yield ContentLoadedSuccess(event.content.data, currentState.query, event.content.hasMore);
+    } else if (event is LoadNext) {
+      isLoadingNextPage = true;
+      final input = SearchContentInteractorInput(query: state.query, page: _nextPageToLoad);
+      final result = await _searchContentInteractor.execute(input);
+      if (result != null && currentState is ContentLoadedSuccess) {
+        logger.d("Loaded");
+        hasMore = result.hasMore;
+        isLoadingNextPage = false;
+        yield ContentLoadedSuccess(currentState.content + result.data, state.query, result.hasMore);
+      }
     }
   }
 
-  CancelableOperation<Page<VideoContent>> newSearchJob(String query) {
+
+  CancelableOperation<Page<VideoContent>> newSearchJob(String query, int page) {
+    final input = SearchContentInteractorInput(query: query, page: page);
     return CancelableOperation.fromFuture(
-        Future.delayed(Duration(seconds: 1), () => _searchContentInteractor.execute(query)),
+        Future.delayed(Duration(seconds: 1), () => _searchContentInteractor.execute(input)),
         onCancel: () => logger.d("Cancel query"));
   }
 }

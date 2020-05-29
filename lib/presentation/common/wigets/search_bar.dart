@@ -13,10 +13,10 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: EdgeInsets.all(4),
-        color: AppColors.transparentDark,
+        color: AppColors.almostBlack,
         child: TextField(
           decoration: _textFieldDecoration,
           onChanged: onChanged,
