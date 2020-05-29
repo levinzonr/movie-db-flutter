@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/domain/models/provider_type.dart';
+import 'package:what_and_where/presentation/common/app_colors.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
 
 extension MovieExtension on Movie {
@@ -71,5 +73,11 @@ extension ContentProviderExtensions on ProviderType {
       default:
         return "_Unknown provider";
     }
+  }
+}
+
+extension AppShimmer on Shimmer {
+  static Shimmer fromAppColors({Widget child}) {
+    return Shimmer.fromColors(child: child, baseColor: AppColors.almostBlack, highlightColor: AppColors.blackish);
   }
 }

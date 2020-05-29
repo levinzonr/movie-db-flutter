@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:what_and_where/presentation/common/app_colors.dart';
 import 'package:what_and_where/presentation/common/text_styles.dart';
+import 'package:what_and_where/presentation/extensions/extensions.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
 
 class ShimmerProviderSection extends StatelessWidget {
@@ -21,9 +22,7 @@ class ShimmerProviderSection extends StatelessWidget {
   }
 
   Widget get _providersContainer {
-    return Shimmer.fromColors(
-      baseColor: AppColors.almostBlack,
-      highlightColor: AppColors.blackish,
+    return AppShimmer.fromAppColors (
       child: Wrap(
         alignment: WrapAlignment.center,
         runSpacing: 16,

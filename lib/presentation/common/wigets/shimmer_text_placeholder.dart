@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:what_and_where/presentation/common/app_colors.dart';
+import 'package:what_and_where/presentation/extensions/extensions.dart';
 
 class ShimmerTextPlaceHolder extends StatelessWidget {
 
@@ -11,9 +12,7 @@ class ShimmerTextPlaceHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: AppColors.almostBlack,
-      highlightColor: AppColors.blackish,
+    return AppShimmer.fromAppColors(
       child: Container(
         height: 10,
         width: width,
