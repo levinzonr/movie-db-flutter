@@ -29,6 +29,7 @@ dependencies:
   equatable: ^1.1.1
   logger: ^0.9.1
   url_launcher: ^5.4.10
+  shimmer: ^1.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
