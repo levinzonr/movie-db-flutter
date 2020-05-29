@@ -1,4 +1,6 @@
-class Movie {
+import 'package:what_and_where/domain/models/video_content.dart';
+
+class Movie extends VideoContent {
   String id;
   String displayName;
   String imageUrl;
@@ -20,7 +22,13 @@ class Movie {
       this.rating,
       this.description,
       this.genres,
-      this.details});
+      this.details}) : super(
+    id: id,
+    title: displayName,
+    voteAverage: rating,
+    posterImageUrl: imageUrl,
+    releaseDate: DateTime.now()
+  );
 }
 
 class MovieDetails {

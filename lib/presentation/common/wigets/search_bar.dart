@@ -6,6 +6,10 @@ import 'package:what_and_where/presentation/translations/translations.dart';
 class SearchBar extends StatelessWidget {
 
 
+  final Function(String) onChanged;
+
+  SearchBar({this.onChanged});
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -15,6 +19,7 @@ class SearchBar extends StatelessWidget {
         color: AppColors.transparentDark,
         child: TextField(
           decoration: _textFieldDecoration,
+          onChanged: onChanged,
         ),
       ),
     );

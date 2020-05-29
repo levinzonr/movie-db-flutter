@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/domain/models/page.dart';
+import 'package:what_and_where/domain/models/video_content.dart';
 import 'package:what_and_where/domain/repository/movie_repository.dart';
 import 'package:what_and_where/extensions/extensions.dart';
 import 'package:what_and_where/utils/logger.dart';
@@ -10,7 +11,7 @@ class MockMovieRepository extends MovieRepository {
   Future<Page<Movie>> getTopRatedMoviesPage(int page) {
     logger.d("Loading movies page $page");
     return Future.delayed(Duration(seconds: 1))
-        .then((value) => _buildMoviesPage(page));
+        .then((value) => _buildMoviesPage(page, false));
   }
 
 
@@ -20,12 +21,20 @@ class MockMovieRepository extends MovieRepository {
         .then((value) => mockMovie(1, details: mockDetails()));
   }
 
-  Page<Movie> _buildMoviesPage(int page) {
+  Page<Movie> _buildMoviesPage(int page, bool hasMore) {
      return Page(
        data: List.generate(10, (index) => mockMovie(index)),
-       hasMore: true,
+       hasMore: hasMore,
        nextPage: ++page
      );
+  }
+
+
+  @override
+  Future<Page<VideoContent>> searchContent(String query) {
+    return Future.delayed(Duration(seconds: 1)).then((value) {
+      return _buildMoviesPage(1, false);
+    });
   }
 
   MovieDetails mockDetails() {

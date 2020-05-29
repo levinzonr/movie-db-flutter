@@ -9,5 +9,5 @@ Future<void> inject() async {
   injector.registerFactory<MoviesListBloc>(() => MoviesListBloc(injector()));
   injector.registerFactory<HomeBloc>(() => HomeBloc());
   injector.registerFactory<MovieDetailsBloc>(() => MovieDetailsBloc(injector(), injector()));
-  injector.registerFactory<SearchBloc>(() => SearchBloc());
+  injector.registerFactory<SearchBloc>(() => SearchBloc(injector()));
 }
