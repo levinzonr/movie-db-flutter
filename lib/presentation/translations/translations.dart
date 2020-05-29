@@ -11,4 +11,11 @@ class Translation {
   static String navigationMovies = "Explore";
   static String navigationSettings = "Settings";
   static String navigationSearch = "Search";
+
+  static String providerNetflix = "Netflix";
+  static String providerAmazonPrime = "Prime Video";
+  static String providerHboGO = "HBO Go";
+  static String providerDisney = "Disney+";
+
+  static String availableOn = "Available on";
 }

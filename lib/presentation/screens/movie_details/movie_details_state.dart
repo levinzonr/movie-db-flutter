@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:what_and_where/domain/models/content_provider.dart';
+import 'package:what_and_where/domain/models/provider.dart';
+import 'package:what_and_where/domain/models/provider_type.dart';
 import 'package:what_and_where/domain/models/movie.dart';
 
 
@@ -9,7 +10,7 @@ class MovieDetailsState extends Equatable {
   final Movie movie;
 
   final bool providersLoading;
-  final List<ContentProvider> providers;
+  final List<Provider> providers;
 
 
   MovieDetailsState({this.isLoading, this.movie, this.providersLoading, this.providers});
@@ -26,7 +27,7 @@ class MovieDetailsState extends Equatable {
     );
   }
 
-  MovieDetailsState copyWith({Movie movie, bool isLoading, List<ContentProvider> newProviders, bool providersLoading}) {
+  MovieDetailsState copyWith({Movie movie, bool isLoading, List<Provider> newProviders, bool providersLoading}) {
     return MovieDetailsState(
       movie: movie != null ? movie : this.movie,
       isLoading: isLoading != null ? isLoading : this.isLoading,

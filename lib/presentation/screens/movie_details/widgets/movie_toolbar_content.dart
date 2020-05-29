@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:what_and_where/domain/models/movie.dart';
+import 'package:what_and_where/presentation/common/app_colors.dart';
 import 'package:what_and_where/presentation/common/text_styles.dart';
 
 class MovieToolbarContent extends StatelessWidget {
@@ -17,21 +18,29 @@ class MovieToolbarContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        backgroundImageUrl != null ? Image.asset(backgroundImageUrl) : Container(),
+        _backgroundImage,
         _toolbarGradient,
         _movieDetailsContent,
       ],
     );
   }
 
+  Widget get _backgroundImage {
+    return backgroundImageUrl != null ?
+    FractionallySizedBox(widthFactor: 1, heightFactor: 0.8,
+      child: Image.asset(backgroundImageUrl, fit: BoxFit.fitWidth,),) :
+    Container();
+  }
+
+
   Widget get _toolbarGradient =>
       Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
-                stops: [0.0, 0.2, 1.0],
+                stops: [0.0, 0.2, 0.3, 1.0],
                 end: Alignment.topCenter,
-                colors: [Colors.black, Colors.black, Colors.transparent])),
+                colors: [AppColors.darkGrey, AppColors.darkGrey, AppColors.darkGrey, Colors.transparent])),
       );
 
   Widget get _movieDetailsContent =>

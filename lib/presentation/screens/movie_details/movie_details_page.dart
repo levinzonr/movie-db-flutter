@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/injection/injector.dart';
-import 'package:what_and_where/presentation/common/text_styles.dart';
 import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_bloc.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_event.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_state.dart';
 import 'package:what_and_where/presentation/screens/movie_details/widgets/movie_toolbar_content.dart';
+import 'package:what_and_where/presentation/screens/movie_details/widgets/providers_section.dart';
 import 'package:what_and_where/utils/logger.dart';
 
 class MovieDetailsPage extends StatelessWidget {
@@ -32,7 +32,8 @@ class MovieDetailsPage extends StatelessWidget {
     return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
       builder: (context, state) {
         return SafeArea(
-          child: CustomScrollView(
+          child: Scaffold(
+            body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
                 pinned: true,
@@ -43,11 +44,15 @@ class MovieDetailsPage extends StatelessWidget {
                 ),
               ),
               SliverFillRemaining(
-                child: _buildProvidersPage(context, state),
+                child: Column(
+                  children: <Widget>[
+                    _buildProvidersPage(context, state)
+                  ],
+                ),
               )
             ],
           ),
-        );
+        ));
       },
     );
   }
@@ -74,7 +79,7 @@ class MovieDetailsPage extends StatelessWidget {
   Widget _buildProvidersPage(BuildContext context, MovieDetailsState state) {
     logger.d("State: ${state.providersLoading}, ${state.providers}");
     if (!state.providersLoading) {
-      return Text(state.providers.join("\n"));
+      return ProvidersSection(providers: state.providers);
     } else {
       return CenteredLoadingIndicator();
     }

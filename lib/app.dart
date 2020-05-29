@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:what_and_where/presentation/common/app_colors.dart';
 import 'package:what_and_where/presentation/screens/home/home_page.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
+import 'package:what_and_where/presentation/extensions/extensions.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
           brightness: Brightness.dark,
+          scaffoldBackgroundColor: AppColors.darkGrey,
           // This makes the visual density adapt to the platform that you run
           // the app on. For desktop platforms, the controls will be smaller and
           // closer together (more dense) than on mobile platforms.
