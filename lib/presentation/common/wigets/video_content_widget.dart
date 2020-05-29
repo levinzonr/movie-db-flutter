@@ -4,18 +4,19 @@ import 'package:what_and_where/domain/models/video_content.dart';
 import 'package:what_and_where/presentation/common/text_styles.dart';
 import 'package:what_and_where/presentation/extensions/extensions.dart';
 
-class TopRatedMovieWidget extends StatelessWidget {
+class VideoContentWidget extends StatelessWidget {
   final VideoContent content;
   final VoidCallback onTap;
 
-  TopRatedMovieWidget({this.content, this.onTap});
+  VideoContentWidget({this.content, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: SizedBox(
-          height: 200,
+      child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          height: 150,
           child: Card(
             elevation: 16,
             shape:
@@ -31,12 +32,16 @@ class TopRatedMovieWidget extends StatelessWidget {
     );
   }
 
-  Widget get _imageRow => Flexible(
-      flex: 4,
-      child: Container(
+  Widget get _imageRow => SizedBox(
+          child: Container(
         height: double.infinity,
-        width: double.infinity,
-        child:  Image.asset(content.posterImageUrl, fit: BoxFit.fill),
+        width: 100,
+        child: Stack(
+          children: <Widget>[
+            Image.asset(content.posterImageUrl, fit: BoxFit.fill, height: double.infinity),
+            _ratingRow
+          ],
+        ),
       ));
 
   Widget get _detailsRow => Flexible(
@@ -52,8 +57,6 @@ class TopRatedMovieWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Padding(padding: EdgeInsets.only(left: 8)),
-              _ratingRow
             ],
           ),
         ],
@@ -64,35 +67,31 @@ class TopRatedMovieWidget extends StatelessWidget {
           Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "${content.title} (${content.releaseDate})",
-                style: TextStyles.header1,
+                "${content.title} (${content.releaseDate.year})",
+                style: TextStyles.header2,
               )),
-          Padding(padding: EdgeInsets.only(top: 8)),
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Genres",
-              style: TextStyles.body1,
-            ),
-          ),
         ],
       );
 
-  Widget get _ratingRow => Container(
-        padding: EdgeInsets.only(right: 16, bottom: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Icon(
-              Icons.star,
-              color: Colors.yellow,
-            ),
-            Text(
-              content.voteAverage.toString(),
-              style: TextStyles.body1,
-            )
-          ],
-        ),
+  Widget get _dateColumn => Row(
+        children: <Widget>[
+          Icon(Icons.calendar_today),
+          Text(content.releaseDate.year.toString())
+        ],
       );
+
+  Widget get _ratingRow => ClipRRect(
+    borderRadius: BorderRadius.circular(8),
+    child:  Container(
+     alignment: Alignment.center,
+      color: content.voteAverage.ratingColor,
+      width: 30,
+      height: 30,
+      child: Text(
+        content.voteAverage.toString(),
+        style: TextStyles.body1.copyWith(fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      ))
+  );
 
 }

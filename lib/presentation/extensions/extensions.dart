@@ -5,11 +5,11 @@ import 'package:what_and_where/domain/models/provider_type.dart';
 import 'package:what_and_where/presentation/common/app_colors.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
 
-extension MovieExtension on Movie {
-  Color get metascoreColor {
-    if (metascore < 50) {
+extension DoubleExtensions on double {
+  Color get ratingColor {
+    if (this < 5) {
       return Colors.red;
-    } else if (metascore < 80) {
+    } else if (this < 7) {
       return Colors.orange;
     } else {
       return Colors.green;

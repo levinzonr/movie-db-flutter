@@ -6,7 +6,7 @@ import 'package:what_and_where/presentation/screens/movie_details/movie_details_
 import 'package:what_and_where/presentation/screens/movies/movies_list_bloc.dart';
 import 'package:what_and_where/presentation/screens/movies/movies_list_event.dart';
 import 'package:what_and_where/presentation/screens/movies/movies_list_state.dart';
-import 'package:what_and_where/presentation/screens/movies/widgets/top_rated_movie_widget.dart';
+import 'package:what_and_where/presentation/common/wigets/video_content_widget.dart';
 import 'package:what_and_where/utils/logger.dart';
 import 'package:what_and_where/presentation/extensions/extensions.dart';
 
@@ -59,7 +59,7 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
         itemBuilder: (context, index) {
           return index >= state.movies.length ?
           CenteredLoadingIndicator() :
-          TopRatedMovieWidget(
+          VideoContentWidget(
               content: state.movies[index],
               onTap: () {
                 context.pushTo(MovieDetailsPage.init(context, state.movies[index]));

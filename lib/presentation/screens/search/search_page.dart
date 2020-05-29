@@ -9,7 +9,7 @@ import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicat
 import 'package:what_and_where/presentation/common/wigets/empty_page_holder.dart';
 import 'package:what_and_where/presentation/common/wigets/search_bar.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_page.dart';
-import 'package:what_and_where/presentation/screens/movies/widgets/top_rated_movie_widget.dart';
+import 'package:what_and_where/presentation/common/wigets/video_content_widget.dart';
 import 'package:what_and_where/presentation/screens/search/search_bloc.dart';
 import 'package:what_and_where/presentation/screens/search/search_event.dart';
 import 'package:what_and_where/presentation/screens/search/search_state.dart';
@@ -55,7 +55,7 @@ class SearchPageState extends State<SearchPage> {
       body: Stack(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 72, left: 12, right: 12),
+            padding: EdgeInsets.only(top: 72,),
               child: _buildListView(context, state)),
           Container(
             padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -77,7 +77,7 @@ class SearchPageState extends State<SearchPage> {
         itemBuilder: (context, index) {
           return index >= state.content.length ?
           CenteredLoadingIndicator() :
-          TopRatedMovieWidget(
+          VideoContentWidget(
               content: state.content[index],
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage.init(context, state.content[index])));
