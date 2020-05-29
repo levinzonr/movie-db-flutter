@@ -12,17 +12,14 @@ class ProvidersSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 16),
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(padding: EdgeInsets.only(left: 16), child: Text(Translation.availableOn, style: TextStyles.header2,), width: double.infinity,),
+          Container(child: Text(Translation.availableOn, style: TextStyles.header2,), width: double.infinity,),
           Padding(padding: EdgeInsets.only(top: 16)),
           Container(child: providersContainer, width: double.infinity,),
         ],
-      )
-    );
+      );
   }
 
   Container get providersContainer {
@@ -36,13 +33,5 @@ class ProvidersSection extends StatelessWidget {
         )
     );
   }
-
-  GridView get _providersGridView =>
-      GridView.count(
-        physics: ScrollPhysics(),
-        shrinkWrap: true,
-        crossAxisCount: 3,
-        children: providers.map((e) => ProviderView(provider: e,)).toList(),
-      );
 
 }

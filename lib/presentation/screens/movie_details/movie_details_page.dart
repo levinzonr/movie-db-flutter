@@ -6,6 +6,7 @@ import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicat
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_bloc.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_event.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_state.dart';
+import 'package:what_and_where/presentation/screens/movie_details/widgets/movie_details_view.dart';
 import 'package:what_and_where/presentation/screens/movie_details/widgets/movie_toolbar_content.dart';
 import 'package:what_and_where/presentation/screens/movie_details/widgets/providers_section.dart';
 import 'package:what_and_where/utils/logger.dart';
@@ -46,7 +47,14 @@ class MovieDetailsPage extends StatelessWidget {
               SliverFillRemaining(
                 child: Column(
                   children: <Widget>[
-                    _buildProvidersPage(context, state)
+                    Container(
+                      padding: EdgeInsets.all(16),
+                      child: _buildDetailsPage(context, state),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(16),
+                      child: _buildProvidersPage(context, state),
+                    ),
                   ],
                 ),
               )
@@ -63,14 +71,14 @@ class MovieDetailsPage extends StatelessWidget {
         backgroundImageUrl: backroundUrl,
         posterImageUrl: movie.imageUrl,
         title: movie.displayName,
-        subtitle: "${movie.year} }",
+        subtitle: "${movie.year} ● ${movie.runtime}",
       );
   }
 
 
   Widget _buildDetailsPage(BuildContext context, MovieDetailsState state) {
     if (!state.isLoading) {
-      return Text(state.movie.details.toString());
+      return MovieDetailsView(description: state.movie?.details?.synopsis,);
     } else {
       return CenteredLoadingIndicator();
     }

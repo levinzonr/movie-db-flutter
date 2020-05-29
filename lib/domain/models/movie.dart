@@ -4,6 +4,7 @@ class Movie {
   String imageUrl;
   double rating;
   int metascore;
+  int runtime;
   int year;
   String description;
   List<String> genres;
@@ -11,6 +12,7 @@ class Movie {
 
   Movie(
       {this.id,
+        this.runtime,
       this.displayName,
       this.imageUrl,
       this.metascore,
@@ -22,14 +24,12 @@ class Movie {
 }
 
 class MovieDetails {
-  int runtime;
   String tagline;
   String synopsis;
   DateTime releaseDate;
   String landingImageUrl;
 
-  MovieDetails(
-      {this.runtime,
+  MovieDetails({
       this.tagline,
       this.synopsis,
       this.releaseDate,

@@ -18,4 +18,5 @@ class Translation {
   static String providerDisney = "Disney+";
 
   static String availableOn = "Available on";
+  static String synopsis = "Synopsis";
 }

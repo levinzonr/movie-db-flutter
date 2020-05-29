@@ -30,7 +30,6 @@ class MockMovieRepository extends MovieRepository {
 
   MovieDetails mockDetails() {
     return MovieDetails(
-      runtime: Random().next(100, 320),
       tagline: "I want to beleive",
       landingImageUrl: "assets/preview.jpg",
       synopsis: "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
@@ -44,6 +43,7 @@ class MockMovieRepository extends MovieRepository {
       id: index.toString(),
       displayName: _mockName(index),
       imageUrl: _mockImage(index),
+      runtime: random.next(100, 320),
       metascore: random.next(10, 100),
       year: random.next(1999, 2020),
       rating: 9.5,
