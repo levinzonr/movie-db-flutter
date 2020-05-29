@@ -72,7 +72,8 @@ class SearchPageState extends State<SearchPage> {
   Widget _buildListView(BuildContext context, SearchState state) {
     if (state is ContentLoadedSuccess) {
       logger.d("Leas ${state.content.length}");
-      return ListView.separated(
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2, childAspectRatio: 0.6),
         controller: controller,
         itemBuilder: (context, index) {
           return index >= state.content.length ?
@@ -84,8 +85,6 @@ class SearchPageState extends State<SearchPage> {
               }
           );
         },
-        separatorBuilder: (context, index) =>
-            Padding(padding: EdgeInsets.symmetric(vertical: 8)),
         itemCount: state.hasMore ? state.content.length + 1 : state.content.length,
       );
     } else if(state is Default) {

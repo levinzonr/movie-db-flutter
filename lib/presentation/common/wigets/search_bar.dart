@@ -18,6 +18,7 @@ class SearchBar extends StatelessWidget {
         padding: EdgeInsets.all(4),
         color: AppColors.almostBlack,
         child: TextField(
+          autofocus: false,
           decoration: _textFieldDecoration,
           onChanged: onChanged,
         ),

@@ -15,70 +15,45 @@ class VideoContentWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          height: 150,
-          child: Card(
-            elevation: 16,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            clipBehavior: Clip.hardEdge,
-            child: Row(
-              children: <Widget>[
-                _imageRow,
-                _detailsRow,
-              ],
-            ),
-          )),
+        padding: EdgeInsets.all(8),
+        child: Column(
+          children: <Widget>[
+            _imageRow,
+            Padding(padding: EdgeInsets.only(top: 7),),
+            _titleContainer
+          ],
+        ),
+      ) 
     );
   }
 
-  Widget get _imageRow => SizedBox(
-          child: Container(
-        height: double.infinity,
-        width: 100,
-        child: Stack(
-          children: <Widget>[
-            Image.asset(content.posterImageUrl, fit: BoxFit.fill, height: double.infinity),
-            _ratingRow
-          ],
-        ),
-      ));
+  Widget get _titleContainer => Flexible(
+    child: Container(
+      child: Text(content.title,
 
-  Widget get _detailsRow => Flexible(
-      flex: 7,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-              padding: EdgeInsets.only(left: 16, top: 16),
-              child: _descriptionColumn),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-            ],
-          ),
-        ],
-      ));
+        textAlign: TextAlign.center,
+        style: TextStyles.body2.copyWith(fontWeight: FontWeight.bold),
+        softWrap: true,),
+    ),
+  );
 
-  Widget get _descriptionColumn => Column(
-        children: <Widget>[
-          Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "${content.title} (${content.releaseDate.year})",
-                style: TextStyles.header2,
-              )),
-        ],
+  Widget get _imageRow => Flexible(
+    flex: 6,
+       child: Container(
+         padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
+         child : ClipRRect(
+         borderRadius: BorderRadius.circular(12),
+         child: Container(
+             height: double.infinity,
+             child: Stack(
+               children: <Widget>[
+                 Image.asset(content.posterImageUrl, fit: BoxFit.fill, height: double.infinity, width: double.infinity,),
+                 _ratingRow
+               ],
+             )
+       ))),
       );
 
-  Widget get _dateColumn => Row(
-        children: <Widget>[
-          Icon(Icons.calendar_today),
-          Text(content.releaseDate.year.toString())
-        ],
-      );
 
   Widget get _ratingRow => ClipRRect(
     borderRadius: BorderRadius.circular(8),

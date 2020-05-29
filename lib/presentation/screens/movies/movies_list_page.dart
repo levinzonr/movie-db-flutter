@@ -55,7 +55,8 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
   Widget _buildContent(BuildContext context, MoviesListState state) {
     if (state is MoviePageLoaded) {
       isLoading = false;
-      return ListView.separated(
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.6),
         itemBuilder: (context, index) {
           return index >= state.movies.length ?
           CenteredLoadingIndicator() :
@@ -66,8 +67,6 @@ class MoviesListPageState extends State<MoviesListPage> with AutomaticKeepAliveC
               }
           );
         },
-        separatorBuilder: (context, index) =>
-            Padding(padding: EdgeInsets.symmetric(vertical: 8)),
         itemCount: state.hasMore ? state.movies.length + 1 : state.movies.length,
         controller: _scrollController,
       );
