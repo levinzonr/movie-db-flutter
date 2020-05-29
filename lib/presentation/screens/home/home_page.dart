@@ -7,6 +7,7 @@ import 'package:what_and_where/presentation/screens/home/home_state.dart';
 import 'package:what_and_where/presentation/screens/home/home_tab.dart';
 import 'package:what_and_where/presentation/screens/movies/movies_list_page.dart';
 import 'package:what_and_where/presentation/screens/search/search_page.dart';
+import 'package:what_and_where/presentation/screens/settings/settings_page.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
 
 
@@ -83,7 +84,7 @@ class HomePageState extends State<HomePage> {
         return SearchPage.init(context);
       }
       case HomeTab.settings: {
-        return Placeholder(color: Colors.blue,);
+        return SettingsPage.init(context);
       }
       default : {
         return Placeholder(color: Colors.red,);
