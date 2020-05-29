@@ -22,15 +22,15 @@ class TopRatedMovieWidget extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             child: Row(
               children: <Widget>[
-                imageRow,
-                detailsRow,
+                _imageRow,
+                _detailsRow,
               ],
             ),
           )),
     );
   }
 
-  Widget get imageRow => Flexible(
+  Widget get _imageRow => Flexible(
       flex: 4,
       child: Container(
         height: double.infinity,
@@ -38,7 +38,7 @@ class TopRatedMovieWidget extends StatelessWidget {
         child: Hero(tag: "poster${movie.id}", child: Image.asset(movie.imageUrl, fit: BoxFit.fill)),
       ));
 
-  Widget get detailsRow => Flexible(
+  Widget get _detailsRow => Flexible(
       flex: 7,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class TopRatedMovieWidget extends StatelessWidget {
             children: <Widget>[
               _metascoreColumn,
               Padding(padding: EdgeInsets.only(left: 8)),
-              ratingRow
+              _ratingRow
             ],
           ),
         ],
@@ -78,7 +78,7 @@ class TopRatedMovieWidget extends StatelessWidget {
         ],
       );
 
-  Widget get ratingRow => Container(
+  Widget get _ratingRow => Container(
         padding: EdgeInsets.only(right: 16, bottom: 8),
         child: Column(
           mainAxisSize: MainAxisSize.max,

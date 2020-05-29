@@ -19,4 +19,6 @@ class Translation {
 
   static String availableOn = "Available on";
   static String synopsis = "Synopsis";
+
+  static String searchHint = "Search Movies & Series";
 }

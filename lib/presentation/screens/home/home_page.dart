@@ -6,6 +6,7 @@ import 'package:what_and_where/presentation/screens/home/home_event.dart';
 import 'package:what_and_where/presentation/screens/home/home_state.dart';
 import 'package:what_and_where/presentation/screens/home/home_tab.dart';
 import 'package:what_and_where/presentation/screens/movies/movies_list_page.dart';
+import 'package:what_and_where/presentation/screens/search/search_page.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
 
 
@@ -55,11 +56,11 @@ class HomePageState extends State<HomePage> {
             title: new Text(Translation.navigationMovies),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
+            icon: new Icon(Icons.search),
             title: new Text(Translation.navigationSearch),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.settings),
             title: new Text(Translation.navigationSettings),
           )
         ],
@@ -79,7 +80,7 @@ class HomePageState extends State<HomePage> {
         return MoviesListPage.init(context);
       }
       case HomeTab.search: {
-        return Placeholder(color: Colors.red,);
+        return SearchPage.init(context);
       }
       case HomeTab.settings: {
         return Placeholder(color: Colors.blue,);
