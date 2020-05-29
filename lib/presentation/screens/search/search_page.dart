@@ -6,12 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/injection/injector.dart';
 import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
+import 'package:what_and_where/presentation/common/wigets/empty_page_holder.dart';
 import 'package:what_and_where/presentation/common/wigets/search_bar.dart';
 import 'package:what_and_where/presentation/screens/movie_details/movie_details_page.dart';
 import 'package:what_and_where/presentation/screens/movies/widgets/top_rated_movie_widget.dart';
 import 'package:what_and_where/presentation/screens/search/search_bloc.dart';
 import 'package:what_and_where/presentation/screens/search/search_event.dart';
 import 'package:what_and_where/presentation/screens/search/search_state.dart';
+import 'package:what_and_where/presentation/translations/translations.dart';
 import 'package:what_and_where/utils/logger.dart';
 
 class SearchPage extends StatefulWidget {
@@ -85,6 +87,12 @@ class SearchPageState extends State<SearchPage> {
         separatorBuilder: (context, index) =>
             Padding(padding: EdgeInsets.symmetric(vertical: 8)),
         itemCount: state.hasMore ? state.content.length + 1 : state.content.length,
+      );
+    } else if(state is Default) {
+      return EmptyPageHolder(
+        title: Translation.searchHint,
+        subtitle: Translation.searchHintSubtitle,
+        image: Icon(Icons.search, size: 66,)
       );
     } else {
       return CenteredLoadingIndicator();

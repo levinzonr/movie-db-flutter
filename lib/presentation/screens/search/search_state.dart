@@ -28,6 +28,5 @@ class ContentLoadedSuccess extends SearchState {
   ContentLoadedSuccess(this.content, this.query, this.hasMore) : super(query);
 
   @override
-  // TODO: implement props
   List<Object> get props => super.props + [content, query, hasMore];
 }

@@ -21,4 +21,5 @@ class Translation {
   static String synopsis = "Synopsis";
 
   static String searchHint = "Search Movies & Series";
+  static String searchHintSubtitle = "Start typing name of Movie or TV series";
 }
