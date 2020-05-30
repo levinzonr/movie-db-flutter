@@ -1,0 +1,4 @@
+
+enum ExploreContentType {
+ topMovies
+}

@@ -12,47 +12,42 @@ class VideoContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(8),
+    return Container(
+      height: 180,
+        width: 110,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _imageRow,
-            Padding(padding: EdgeInsets.only(top: 7),),
-            _titleContainer
+            Flexible(flex: 5,child: _imageRow),
+            Padding(padding: EdgeInsets.only(top: 4)),
+            Flexible(flex: 1,child: _titleContainer)
           ],
         ),
-      ) 
     );
   }
 
-  Widget get _titleContainer => Flexible(
-    child: Container(
-      child: Text(content.title,
-
-        textAlign: TextAlign.center,
-        style: TextStyles.body2.copyWith(fontWeight: FontWeight.bold),
-        softWrap: true,),
+  Widget get _titleContainer => Container(
+    child: Text(content.title,
+      textAlign: TextAlign.start,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
+      style: TextStyles.body2.copyWith(fontWeight: FontWeight.bold, fontSize: 12)
     ),
   );
 
-  Widget get _imageRow => Flexible(
-    flex: 6,
-       child: Container(
-         padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
-         child : ClipRRect(
-         borderRadius: BorderRadius.circular(12),
-         child: Container(
-             height: double.infinity,
-             child: Stack(
-               children: <Widget>[
-                 Image.asset(content.posterImageUrl, fit: BoxFit.fill, height: double.infinity, width: double.infinity,),
-                 _ratingRow
-               ],
-             )
-       ))),
-      );
+  Widget get _imageRow => Container(
+    width: double.infinity,
+    height: double.infinity,
+    child : ClipRRect(
+    borderRadius: BorderRadius.circular(12),
+    child: Stack(
+      children: <Widget>[
+        Image.asset(content.posterImageUrl, fit: BoxFit.fill, height: double.infinity, width: double.infinity,),
+        _ratingRow
+      ],
+    )));
 
 
   Widget get _ratingRow => ClipRRect(
@@ -64,8 +59,8 @@ class VideoContentWidget extends StatelessWidget {
       height: 30,
       child: Text(
         content.voteAverage.toString(),
-        style: TextStyles.body1.copyWith(fontWeight: FontWeight.bold),
-        textAlign: TextAlign.center,
+        overflow: TextOverflow.fade,
+        style: TextStyles.body2.copyWith(fontWeight: FontWeight.bold),
       ))
   );
 

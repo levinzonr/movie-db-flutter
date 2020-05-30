@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:what_and_where/injection/injector.dart';
+import 'package:what_and_where/presentation/screens/explore/explore_page.dart';
 import 'package:what_and_where/presentation/screens/home/home_bloc.dart';
 import 'package:what_and_where/presentation/screens/home/home_event.dart';
 import 'package:what_and_where/presentation/screens/home/home_state.dart';
@@ -78,7 +79,7 @@ class HomePageState extends State<HomePage> {
   Widget _getPageFromTab(BuildContext context, HomeTab tab) {
     switch (tab) {
       case HomeTab.explore: {
-        return MoviesListPage.init(context);
+        return ExplorePage();
       }
       case HomeTab.search: {
         return SearchPage.init(context);
