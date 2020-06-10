@@ -43,40 +43,51 @@ class ContentPreviewListViewState extends State<ContentPreviewList> {
 
   Widget _buildContent(BuildContext context, ContentPreviewListState state) {
     if (state is ContentPreviewListLoaded) {
-      return _buildContentList(context, state);
+      return Column(
+        children: <Widget>[
+          _buildSubview(),
+          _buildContentList(context, state)
+        ],
+      );
     } else {
-      return Container(height: 0, width: 0,);
+      return Container(
+        height: 0,
+        width: 0,
+      );
     }
   }
 
-  Widget _buildContentList(BuildContext context, ContentPreviewListLoaded state) {
-    final items = state.data.map((e) => Container( padding: EdgeInsets.all(16),child: VideoContentWidget(content: e,))).toList(growable: false);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildSubview() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 12),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Section name", style: TextStyles.header2,),
-                FlatButton(onPressed: () => {}, child: Row(
-                  children: <Widget>[
-                    Text("_See All"),
-                    Icon(Icons.chevron_right)
-                  ],
-                ),),
-              ],
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(children: items,),
-          ),
+          Text("Section name", style: TextStyles.header2,),
+          FlatButton(
+            onPressed: () => {},
+            child: Row(children: <Widget>[
+              Text("See All", style: TextStyles.button,),
+              Icon(Icons.chevron_right)
+            ],),
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _buildContentList(
+      BuildContext context, ContentPreviewListLoaded state) {
+    final items = state.data
+        .map((e) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: VideoContentWidget(content: e,),
+        ))
+        .toList(growable: false);
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: items,
       ),
     );
   }

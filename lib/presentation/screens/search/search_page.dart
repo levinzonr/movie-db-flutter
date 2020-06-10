@@ -71,19 +71,13 @@ class SearchPageState extends State<SearchPage> {
 
   Widget _buildListView(BuildContext context, SearchState state) {
     if (state is ContentLoadedSuccess) {
-      logger.d("Leas ${state.content.length}");
       return GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2, childAspectRatio: 0.6),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:3, childAspectRatio: 0.55, crossAxisSpacing: 10, mainAxisSpacing: 10),
         controller: controller,
         itemBuilder: (context, index) {
           return index >= state.content.length ?
           CenteredLoadingIndicator() :
-          VideoContentWidget(
-              content: state.content[index],
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage.init(context, state.content[index])));
-              }
-          );
+          VideoContentWidget(content: state.content[index]);
         },
         itemCount: state.hasMore ? state.content.length + 1 : state.content.length,
       );
