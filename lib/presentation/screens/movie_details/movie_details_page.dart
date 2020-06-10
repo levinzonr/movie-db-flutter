@@ -41,6 +41,8 @@ class MovieDetailsPage extends StatelessWidget {
               body: CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    elevation: 0,
                     pinned: true,
                     expandedHeight: 300,
                     flexibleSpace: FlexibleSpaceBar(

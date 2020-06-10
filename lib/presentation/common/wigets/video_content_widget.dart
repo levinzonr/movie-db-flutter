@@ -3,6 +3,7 @@ import 'package:what_and_where/domain/models/movie.dart';
 import 'package:what_and_where/domain/models/video_content.dart';
 import 'package:what_and_where/presentation/common/text_styles.dart';
 import 'package:what_and_where/presentation/extensions/extensions.dart';
+import 'package:what_and_where/presentation/screens/movie_details/movie_details_page.dart';
 
 class VideoContentWidget extends StatelessWidget {
   final VideoContent content;
@@ -16,11 +17,14 @@ class VideoContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 180, width: 110,
-      child: Column(
-        children: <Widget>[
-          Expanded(flex: 8, child: _imageRow,),
-          Expanded(flex: 2, child: _titleContainer,)
-        ],
+      child: GestureDetector(
+        onTap: () => { context.pushTo(MovieDetailsPage.init(context, content)) },
+        child: Column(
+          children: <Widget>[
+            Expanded(flex: 8, child: _imageRow,),
+            Expanded(flex: 2, child: _titleContainer,)
+          ],
+        ),
       ),
     );
   }

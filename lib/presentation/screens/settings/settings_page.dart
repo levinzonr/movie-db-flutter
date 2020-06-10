@@ -28,7 +28,7 @@ class SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(context),
       body: Column(
         children: <Widget>[
           SettingsButton(

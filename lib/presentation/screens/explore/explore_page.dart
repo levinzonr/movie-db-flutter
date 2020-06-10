@@ -11,7 +11,7 @@ class ExplorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(context),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

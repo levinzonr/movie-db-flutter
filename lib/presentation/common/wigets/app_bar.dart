@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 
 class MyAppBar extends AppBar {
 
-  MyAppBar() : super(
-    elevation: 1.0,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+  MyAppBar(BuildContext context) : super(
+    elevation: 0.0,
     centerTitle: true,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     title: Text("App Bar"),
   );
+
 
 }
