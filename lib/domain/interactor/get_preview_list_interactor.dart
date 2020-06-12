@@ -8,7 +8,6 @@ import 'package:what_and_where/utils/logger.dart';
 
 class GetVideoContentFirstPageInteractor extends Interactor<ExploreContentType, List<VideoContent>> {
 
-
   final MovieRepository repository;
   GetVideoContentFirstPageInteractor(this.repository);
 

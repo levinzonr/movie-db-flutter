@@ -5,6 +5,8 @@ import 'package:what_and_where/injection/injector.dart';
 import 'package:what_and_where/presentation/common/text_styles.dart';
 import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
 import 'package:what_and_where/presentation/common/wigets/video_content_widget.dart';
+import 'package:what_and_where/presentation/extensions/extensions.dart';
+import 'package:what_and_where/presentation/screens/explore/content_section/content_section/content_section_page.dart';
 import 'package:what_and_where/presentation/screens/explore/explore_content_list_preview_bloc.dart';
 import 'package:what_and_where/presentation/screens/explore/explore_content_list_preview_event.dart';
 import 'package:what_and_where/presentation/screens/explore/explore_content_list_preview_state.dart';
@@ -62,9 +64,9 @@ class ContentPreviewListViewState extends State<ContentPreviewList> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text("Section name", style: TextStyles.header2,),
+          Text(widget._contentType.label, style: TextStyles.header2,),
           FlatButton(
-            onPressed: () => {},
+            onPressed: () => {context.pushTo(ContentSectionPage.init(context, widget._contentType))},
             child: Row(children: <Widget>[
               Text("See All", style: TextStyles.button,),
               Icon(Icons.chevron_right)

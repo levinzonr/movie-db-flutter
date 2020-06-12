@@ -10,17 +10,12 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final children = ExploreContentType.values.map((e) => ContentPreviewList.init(context, e)).toList(growable: false);
     return Scaffold(
       appBar: MyAppBar(context),
       body: SingleChildScrollView(
         child: Column(
-          children: <Widget>[
-            ContentPreviewList.init(context, ExploreContentType.topMovies),
-            ContentPreviewList.init(context, ExploreContentType.topMovies),
-            ContentPreviewList.init(context, ExploreContentType.topMovies),
-            ContentPreviewList.init(context, ExploreContentType.topMovies),
-            ContentPreviewList.init(context, ExploreContentType.topMovies),
-          ],
+          children: children
         ),
       ),
     );

@@ -1,4 +1,4 @@
 
 enum ExploreContentType {
- topMovies
+ topMovies, topSeries
 }

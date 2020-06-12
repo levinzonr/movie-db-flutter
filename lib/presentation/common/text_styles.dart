@@ -22,6 +22,11 @@ class TextStyles {
       fontWeight: FontWeight.normal
   );
 
+  static TextStyle get body3  => TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.normal
+  );
+
 
   static TextStyle get button  => TextStyle(
       fontSize: 16,

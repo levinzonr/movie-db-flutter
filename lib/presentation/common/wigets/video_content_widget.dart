@@ -30,13 +30,14 @@ class VideoContentWidget extends StatelessWidget {
   }
 
   Widget get _titleContainer => Container(
+    alignment: Alignment.topLeft,
     padding: EdgeInsets.only(top: 4),
     child: Text(content.title,
       textAlign: TextAlign.start,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
       maxLines: 2,
-      style: TextStyles.body2.copyWith(fontWeight: FontWeight.bold, fontSize: 12)
+      style: TextStyles.body3
     ),
   );
 

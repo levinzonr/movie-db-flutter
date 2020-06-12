@@ -22,4 +22,7 @@ class Translation {
 
   static String searchHint = "Search Movies & Series";
   static String searchHintSubtitle = "Start typing the name of a Movie or TV series";
+
+  static String topMoviesType = "Top Movies";
+  static String topSeriesType = "Top Series";
 }

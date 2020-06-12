@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:what_and_where/domain/models/movie.dart';
+import 'package:what_and_where/domain/models/explore_data_type.dart';
 import 'package:what_and_where/domain/models/provider_type.dart';
 import 'package:what_and_where/presentation/common/app_colors.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
@@ -74,6 +74,16 @@ extension ContentProviderExtensions on ProviderType {
         return "_Unknown provider";
     }
   }
+}
+
+extension ModelExtenesions on ExploreContentType {
+   String get label {
+     switch(this) {
+       case ExploreContentType.topMovies: return Translation.topMoviesType;
+       case ExploreContentType.topSeries: return Translation.topSeriesType;
+       default: return "WTF";
+     }
+   }
 }
 
 extension AppShimmer on Shimmer {
