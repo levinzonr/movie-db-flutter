@@ -1,5 +1,6 @@
 
 
+import 'package:what_and_where/domain/interactor/get_content_page_by_type_Interactor.dart';
 import 'package:what_and_where/domain/interactor/get_movie_providers_interactor.dart';
 import 'package:what_and_where/domain/interactor/get_movie_with_details_interactor.dart';
 import 'package:what_and_where/domain/interactor/get_preview_list_interactor.dart';
@@ -13,4 +14,5 @@ Future<void> inject() async {
   injector.registerLazySingleton<GetContentProvidersInteractor>(() => GetContentProvidersInteractor(injector()));
   injector.registerLazySingleton<SearchContentInteractor>(() => SearchContentInteractor(injector()));
   injector.registerLazySingleton<GetVideoContentFirstPageInteractor>(() => GetVideoContentFirstPageInteractor(injector()));
+  injector.registerLazySingleton<GetContentPageByTypeInteractor>(() => GetContentPageByTypeInteractor(injector()));
 }

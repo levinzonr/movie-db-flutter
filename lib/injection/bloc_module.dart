@@ -16,5 +16,5 @@ Future<void> inject() async {
   injector.registerFactory<SearchBloc>(() => SearchBloc(injector()));
   injector.registerFactory<SettingsBloc>(() => SettingsBloc());
   injector.registerFactory<ContentPreviewListBloc>(() => ContentPreviewListBloc(injector()));
-  injector.registerFactory<ContentSectionBloc>(() => ContentSectionBloc());
+  injector.registerFactory<ContentSectionBloc>(() => ContentSectionBloc(injector()));
 }
