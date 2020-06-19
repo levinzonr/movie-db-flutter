@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:what_and_where/domain/models/explore_data_type.dart';
 import 'package:what_and_where/injection/injector.dart';
+import 'package:what_and_where/presentation/common/wigets/bottom_loading_indicator.dart';
 import 'package:what_and_where/presentation/common/wigets/video_content_widget.dart';
 import 'package:what_and_where/presentation/extensions/extensions.dart';
 import 'package:what_and_where/presentation/screens/explore/content_section/content_section/content_section_bloc.dart';
@@ -29,18 +30,33 @@ class ContentSectionPage extends StatefulWidget {
 class ContentSectionPageState extends State<ContentSectionPage> {
 
   ContentSectionBloc bloc;
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     bloc = context.bloc();
     bloc.add(Init(widget.type));
+    _scrollController.addListener(() {
+        _onScroll();
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     bloc.close();
+    _scrollController.dispose();
+  }
+
+  void _onScroll() {
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    if (maxScroll - currentScroll <= 200) {
+      if (!bloc.state.isLoadingNext && bloc.hasMore)  {
+        bloc.add(LoadNext());
+      }
+    }
   }
 
   @override
@@ -57,6 +73,7 @@ class ContentSectionPageState extends State<ContentSectionPage> {
     return SafeArea(
         child: Scaffold(
           body: CustomScrollView(
+            controller: _scrollController,
             slivers: [
               SliverAppBar(elevation: 0, title: Text(widget.type.label), backgroundColor: Theme.of(context).scaffoldBackgroundColor, centerTitle: true,),
               SliverPadding(
@@ -64,8 +81,8 @@ class ContentSectionPageState extends State<ContentSectionPage> {
                 sliver: SliverGrid(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.55, mainAxisSpacing: 16, crossAxisSpacing: 16),
                   delegate: SliverChildBuilderDelegate(
-                    (context, index) => VideoContentWidget(content: state.data[index]),
-                    childCount: state.data.length,
+                    (context, index) => index == state.data.length ? CenteredLoadingIndicator() : VideoContentWidget(content: state.data[index]),
+                    childCount: bloc.hasMore ? state.data.length + 1 : state.data.length,
                   )
                 ),
               ),

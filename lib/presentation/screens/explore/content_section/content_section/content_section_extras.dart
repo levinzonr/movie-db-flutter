@@ -7,6 +7,7 @@ abstract class ContentSectionEvent extends Equatable {
   List<Object> get props => [];
 }
 
+
 class Init extends ContentSectionEvent {
   final ExploreContentType type;
   Init(this.type);
@@ -14,15 +15,25 @@ class Init extends ContentSectionEvent {
   List<Object> get props => super.props + [type];
 }
 
+class LoadNext extends ContentSectionEvent {
+
+  LoadNext();
+
+  @override
+  List<Object> get props => super.props;
+}
+
 class ContentSectionState extends Equatable {
 
   final List<VideoContent> data;
-  ContentSectionState({this.data = const []});
+  final bool isLoadingNext;
+  ContentSectionState({this.data = const [], this.isLoadingNext = false});
 
 
-  ContentSectionState copyWith({List<VideoContent> data}) {
+  ContentSectionState copyWith({List<VideoContent> data, bool loadingNext}) {
     return ContentSectionState(
-      data: data ?? this.data
+      data: data ?? this.data,
+      isLoadingNext: loadingNext ?? this.isLoadingNext
     );
   }
 
