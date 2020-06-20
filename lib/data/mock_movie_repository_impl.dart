@@ -49,7 +49,7 @@ class MockMovieRepository extends MovieRepository {
   Movie mockMovie(int index, {MovieDetails details}) {
     final random = Random();
     return Movie(
-      id: index.toString(),
+      id: random.nextInt(10000).toString(),
       displayName: _mockName(index),
       imageUrl: _mockImage(index),
       runtime: random.next(100, 320),
@@ -64,14 +64,15 @@ class MockMovieRepository extends MovieRepository {
 
   String _mockName(index) {
     final type = index % 2;
+
     switch (type) {
       case 0:
         {
-          return "The Matrix";
+          return "The Matrix $index";
         }
       case 1:
         {
-          return "Star Wars: Episode V - The Empire Strikes Back";
+          return "Star Wars: Episode V - The Empire Strikes Back $index";
         }
       default:
         {

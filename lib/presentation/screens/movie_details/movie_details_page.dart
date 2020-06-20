@@ -75,6 +75,7 @@ class MovieDetailsPage extends StatelessWidget {
   Widget _collpasingToolbarContent(MovieDetailsState state) {
     final backroundUrl = state.movie?.details?.landingImageUrl;
     return MovieToolbarContent(
+      id: movie.id,
       backgroundImageUrl: backroundUrl,
       posterImageUrl: movie.imageUrl,
       title: movie.displayName,

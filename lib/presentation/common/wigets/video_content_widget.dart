@@ -41,15 +41,18 @@ class VideoContentWidget extends StatelessWidget {
     ),
   );
 
-  Widget get _imageRow => Container(
-    child : ClipRRect(
-    borderRadius: BorderRadius.circular(12),
-    child: Stack(
-      children: <Widget>[
-        Image.asset(content.posterImageUrl, fit: BoxFit.fill, height: double.infinity, width: double.infinity,),
-        _ratingRow
-      ],
-    )));
+  Widget get _imageRow => Hero(
+    tag: content.id,
+    child: Container(
+      child : ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Stack(
+        children: <Widget>[
+          Image.asset(content.posterImageUrl, fit: BoxFit.fill, height: double.infinity, width: double.infinity,),
+          _ratingRow
+        ],
+      ))),
+  );
 
 
   Widget get _ratingRow => ClipRRect(
