@@ -2,6 +2,10 @@
 
 class Translation {
 
+  static String confirm = "Confirm";
+  static String ok = "OK";
+  static String cancel = "cancel";
+
   static String appName = "What & Where";
 
   static String moviesTopRatedTab = "Top Rated";
@@ -25,4 +29,7 @@ class Translation {
 
   static String topMoviesType = "Top Movies";
   static String topSeriesType = "Top Series";
+
+  static String countrySelectorTitle = "Where are you from?";
+  static String countrySelectorMessage = "This will help us to determine content availability\nYou can change it in Settings later on";
 }

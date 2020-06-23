@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:what_and_where/presentation/common/app_colors.dart';
 import 'package:what_and_where/presentation/screens/home/home_page.dart';
+import 'package:what_and_where/presentation/screens/splash/splash_page.dart';
 import 'package:what_and_where/presentation/translations/translations.dart';
 import 'package:what_and_where/presentation/extensions/extensions.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomePage.init(context),
+        home: SplashPage.init(context),
     );
   }
 }
