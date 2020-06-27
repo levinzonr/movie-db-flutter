@@ -16,7 +16,7 @@ Future<void> inject() async {
   injector.registerFactory<HomeBloc>(() => HomeBloc());
   injector.registerFactory<MovieDetailsBloc>(() => MovieDetailsBloc(injector(), injector()));
   injector.registerFactory<SearchBloc>(() => SearchBloc(injector()));
-  injector.registerFactory<SettingsBloc>(() => SettingsBloc());
+  injector.registerFactory<SettingsBloc>(() => SettingsBloc(injector()));
   injector.registerFactory<ContentPreviewListBloc>(() => ContentPreviewListBloc(injector()));
   injector.registerFactory<ContentSectionBloc>(() => ContentSectionBloc(injector()));
   injector.registerFactory<SplashBloc>(() => SplashBloc(injector()));

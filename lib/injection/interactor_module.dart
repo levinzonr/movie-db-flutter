@@ -1,5 +1,6 @@
 
 
+import 'package:what_and_where/domain/interactor/get_app_settings_interactor.dart';
 import 'package:what_and_where/domain/interactor/get_content_page_by_type_Interactor.dart';
 import 'package:what_and_where/domain/interactor/get_countries_interactor.dart';
 import 'package:what_and_where/domain/interactor/get_movie_providers_interactor.dart';
@@ -21,4 +22,5 @@ Future<void> inject() async {
   injector.registerLazySingleton<IsCountrySelectedInteractor>(() => IsCountrySelectedInteractor(injector()));
   injector.registerLazySingleton<SetCountryInteractor>(() => SetCountryInteractor(injector()));
   injector.registerLazySingleton<GetCountriesInteractor>(() => GetCountriesInteractor());
+  injector.registerLazySingleton<GetAppSettingsInteractor>(() => GetAppSettingsInteractor(injector()));
 }

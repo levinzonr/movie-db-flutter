@@ -29,7 +29,7 @@ class ShimmerProviderSection extends StatelessWidget {
         spacing: 12,
         children: List.generate(5, (index) {
            return ClipRRect(borderRadius: BorderRadius.circular(12),
-           child: Container(width: 90, height: 100, color: AppColors.almostBlack,));
+           child: Container(width: 80, height: 90, color: AppColors.almostBlack,));
         }),
       ),
     );

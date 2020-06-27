@@ -11,7 +11,7 @@ class IsCountrySelectedInteractor extends Interactor<void, bool> {
   @override
   Future<bool> execute([void a]) async {
     return _repository.getAppSettings().then((value){
-      return value != null && value.countryCode != null;
+      return value != null && value.country != null;
     });
   }
 }

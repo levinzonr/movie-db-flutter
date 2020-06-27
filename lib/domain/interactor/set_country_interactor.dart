@@ -14,7 +14,7 @@ class SetCountryInteractor extends Interactor<Country, void> {
 
   @override
   Future<void> execute([Country input]) async {
-    final newSettings = AppSettings(input.code);
+    final newSettings = AppSettings(input);
     _settingsRepository.updateAppSettings(newSettings).then((value){
       logger.d("Lang updated");
       return;
