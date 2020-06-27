@@ -64,7 +64,7 @@ class SplashPageState extends State<SplashPage> {
         ));
       } else {
         Navigator.pushReplacement(context, MaterialPageRoute(
-            builder: (c) => OnboardingPage()
+            builder: (c) => OnboardingPage.init(c)
         ));
       }
     }
